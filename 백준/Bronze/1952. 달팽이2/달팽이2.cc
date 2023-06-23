@@ -1,39 +1,39 @@
+//
+//  BOJ1952_달팽이2.cpp
+//  Coding_Test_Practice
+//
+//  Created by greena on 2023/06/23
+//  
+
 #include <iostream>
 
 using namespace std;
- 
+
+int M, N;
+int x, y, dir, cnt = 0;
 bool visited[100][100];
-int dx[] = { 0, 1, 0, -1 };
-int dy[] = { 1, 0, -1, 0 };
- 
-int main(void) {
-    int M, N;
+
+int dy[4] = {1,0,-1,0};
+int dx[4] = {0,1,0,-1};
+
+int main(){
     cin >> M >> N;
- 
-    int x = 0, y = 0;
-    int dir = 0;
-    int answer = 0;
- 
-    // 모든 칸을 채울 때까지
-    // 즉, 더이상 달팽이 모양을 그릴 수 없을 때까지
-    while (1) {
-        if (visited[x][y]) {
-            cout << answer - 1 << endl;
-            return 0;
-        }
- 
-        visited[x][y] = true;
-        int nextX = x + dx[dir];
-        int nextY = y + dy[dir];
- 
-        if (nextX < 0 || nextY < 0 || nextX >= M || nextY >= N || visited[nextX][nextY]) {
+    visited[0][0] = 1;
+    while(1){
+        int next_x = x + dx[dir];
+        int next_y = y + dy[dir];
+
+        if (next_x < 0 || next_y < 0 || next_x >= M || next_y >= N || visited[next_x][next_y] ){
             dir = (dir + 1) % 4;
-            nextX = x + dx[dir];
-            nextY = y + dy[dir];
-            answer++;
+            next_x = x + dx[dir];
+            next_y = y + dy[dir];
+            if(visited[next_x][next_y])   break;
+            cnt++;
         }
- 
-        x = nextX;
-        y = nextY;
+        visited[next_x][next_y] = 1;
+        x = next_x;
+        y = next_y;
     }
+    cout << cnt;
+    return 0;
 }
